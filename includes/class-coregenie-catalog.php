@@ -131,7 +131,7 @@ class Coregenie_Catalog {
 	 * Define the locale for this plugin for internationalization.
 	 *
 	 * Uses the Coregenie_Catalog_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
+	 * with WordPress
 	 *
 	 * @since    1.0.0
 	 * @access   private
