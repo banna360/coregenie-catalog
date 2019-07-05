@@ -63,7 +63,7 @@ register_deactivation_hook( __FILE__, 'deactivate_coregenie_catalog' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-coregenie-catalog.php';
-
+   
 /**
  * Begins execution of the plugin.
  *

@@ -2,3 +2,14 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+ .product_meta_box {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 20px;
+    background-color: #eee;
+    padding: 20px;
+}
+ .product_meta_field{
+    display: contents;
+}

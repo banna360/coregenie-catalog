@@ -124,8 +124,9 @@ class Coregenie_Catalog {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-coregenie-catalog-public.php';
 
 		$this->loader = new Coregenie_Catalog_Loader();
-
+	
 	}
+
 
 	/**
 	 * Define the locale for this plugin for internationalization.
@@ -157,9 +158,16 @@ class Coregenie_Catalog {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
 		$this->loader->add_action( 'init', $plugin_admin, 'catalog_post_type_register' );
-	
-	}
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
+
+		$this->loader->add_action( 'load-post.php',$plugin_admin, 'init_metabox' );
+		$this->loader->add_action( 'post-new.php',$plugin_admin, 'init_metabox' );
+		$this->loader->add_action( 'post-new.php?post_type=cg-catalogs', $plugin_admin, 'init_metabox' );
+		
+		$this->loader->add_action( 'save_post',$plugin_admin, 'save_catalog_fields_meta' );
+		}
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality
