@@ -164,9 +164,11 @@ public function catalog_post_type_register() {
         // Add nonce for security and authentication.
         global $post;
     	$meta = get_post_meta( $post->ID, 'catelog_product_fields', true );
+    	
         wp_nonce_field( 'calatalog_custom_nonce_action', 'catelog_custom_nonce' );
         // Meta box html code
-		echo '<div class="product_meta_box">
+
+        	echo '<div class="product_meta_box">
 		    <p class="meta-options product_meta_field">
 		        <label for="product_id">Product ID</label>
 		        <input id="product_id" type="text" name="catelog_product_fields[product_id]" value='.$meta['product_id'].'>
@@ -184,6 +186,8 @@ public function catalog_post_type_register() {
 		        <input id="product_price" type="text" name="catelog_product_fields[product_price]" value='.$meta['product_price'].'>
 		    </p>
 		</div>';
+  
+		
     }
  
     /**
