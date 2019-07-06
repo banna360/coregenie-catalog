@@ -162,11 +162,14 @@ class Coregenie_Catalog {
 		$this->loader->add_action( 'init', $plugin_admin, 'catalog_post_type_register' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
 
-		$this->loader->add_action( 'load-post.php',$plugin_admin, 'init_metabox' );
-		$this->loader->add_action( 'post-new.php',$plugin_admin, 'init_metabox' );
-		$this->loader->add_action( 'post-new.php?post_type=cg-catalogs', $plugin_admin, 'init_metabox' );
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_metabox');
+        $this->loader->add_action( 'save_post',$plugin_admin, 'save_catalog_fields_meta', 10, 2 );
+        
+
+		//$this->loader->add_action( 'load-post.php',$plugin_admin, 'init_metabox' );
+		//$this->loader->add_action( 'post-new.php',$plugin_admin, 'init_metabox' );
+	
 		
-		$this->loader->add_action( 'save_post',$plugin_admin, 'save_catalog_fields_meta' );
 		}
 
 	/**

@@ -55,19 +55,99 @@ class Coregenie_Catalog_Admin {
 	}
 
 	/**
-     * Meta box initialization.
-     */
-    public function init_metabox() {
-        add_action( 'add_meta_boxes', array( $this, 'add_metabox'  )        );
-        add_action( 'save_post',      array( $this, 'save_metabox' ), 10, 2 );
-    }
- 
+	 * Register the stylesheets for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function enqueue_styles() {
+
+		/**
+		 * This function is provided for demonstration purposes only.
+		 *
+		 * An instance of this class should be passed to the run() function
+		 * defined in Coregenie_Catalog_Loader as all of the hooks are defined
+		 * in that particular class.
+		 *
+		 * The Coregenie_Catalog_Loader will then create the relationship
+		 * between the defined hooks and the functions defined in this
+		 * class.
+		 */
+
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/coregenie-Catalog-admin.css', array(), $this->version, 'all' );
+
+	}
+
+	/**
+	 * Register the JavaScript for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function enqueue_scripts() {
+
+		/**
+		 * This function is provided for demonstration purposes only.
+		 *
+		 * An instance of this class should be passed to the run() function
+		 * defined in Coregenie_Catalog_Loader as all of the hooks are defined
+		 * in that particular class.
+		 *
+		 * The Coregenie_Catalog_Loader will then create the relationship
+		 * between the defined hooks and the functions defined in this
+		 * class.
+		 */
+
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/coregenie-Catalog-admin.js', array( 'jquery' ), $this->version, false );
+
+	}
+
+// Register Post Type
+
+public function catalog_post_type_register() {
+
+    $labels = array(
+        'name'                  => _x( 'Product Catalogs', 'Post type general name', $this->plugin_name ),
+        'singular_name'         => _x( 'Catalog', 'Post type singular name', $this->plugin_name ),
+        'menu_name'             => _x( 'Product Catalogs', 'Admin Menu text', $this->plugin_name ),
+        'name_admin_bar'        => _x( 'Catalog', 'Add New on Toolbar', $this->plugin_name ),
+        'add_new'               => __( 'Add New', $this->plugin_name ),
+        'add_new_item'          => __( 'Add New Catalog', $this->plugin_name ),
+        'new_item'              => __( 'New Catalog', $this->plugin_name ),
+        'edit_item'             => __( 'Edit Catalog', $this->plugin_name ),
+        'view_item'             => __( 'View Catalog', $this->plugin_name ),
+        'all_items'             => __( 'All Catalogs', $this->plugin_name ),
+        'search_items'          => __( 'Search Catalogs', $this->plugin_name ),
+        'parent_item_colon'     => __( 'Parent Catalogs:', $this->plugin_name ),
+        'not_found'             => __( 'No Catalogs found.', $this->plugin_name ),
+        'not_found_in_trash'    => __( 'No Catalogs found in Trash.', $this->plugin_name),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'catalogs' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'menu_icon'			 => 'dashicons-admin-page',
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array( 'title', 'editor','thumbnail',),
+    );
+
+    register_post_type( 'cg-catalogs', $args );
+}
+
+
+	
     /**
-     * Adds the meta box.
+     * Add the meta box to catalog post type.
      */
     public function add_metabox() {
         add_meta_box(
-            'my-meta-box',
+            'catalog-meta-box',
             __( 'Product Deails', $this->plugin_name ),
             array( $this, 'render_metabox' ),
             'cg-catalogs',
@@ -149,99 +229,13 @@ class Coregenie_Catalog_Admin {
 
     }
 
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Coregenie_Catalog_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Coregenie_Catalog_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/coregenie-Catalog-admin.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Coregenie_Catalog_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Coregenie_Catalog_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/coregenie-Catalog-admin.js', array( 'jquery' ), $this->version, false );
-
-	}
-
-	// Register Post Type
-
-public function Catalog_post_type_register() {
-
-    $labels = array(
-        'name'                  => _x( 'Product Catalogs', 'Post type general name', $this->plugin_name ),
-        'singular_name'         => _x( 'Catalog', 'Post type singular name', $this->plugin_name ),
-        'menu_name'             => _x( 'Product Catalogs', 'Admin Menu text', $this->plugin_name ),
-        'name_admin_bar'        => _x( 'Catalog', 'Add New on Toolbar', $this->plugin_name ),
-        'add_new'               => __( 'Add New', $this->plugin_name ),
-        'add_new_item'          => __( 'Add New Catalog', $this->plugin_name ),
-        'new_item'              => __( 'New Catalog', $this->plugin_name ),
-        'edit_item'             => __( 'Edit Catalog', $this->plugin_name ),
-        'view_item'             => __( 'View Catalog', $this->plugin_name ),
-        'all_items'             => __( 'All Catalogs', $this->plugin_name ),
-        'search_items'          => __( 'Search Catalogs', $this->plugin_name ),
-        'parent_item_colon'     => __( 'Parent Catalogs:', $this->plugin_name ),
-        'not_found'             => __( 'No Catalogs found.', $this->plugin_name ),
-        'not_found_in_trash'    => __( 'No Catalogs found in Trash.', $this->plugin_name),
-    );
-
-    $args = array(
-        'labels'             => $labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'catalogs' ),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'menu_icon'			 => 'dashicons-admin-page',
-        'hierarchical'       => false,
-        'menu_position'      => null,
-        'supports'           => array( 'title', 'editor','thumbnail',),
-    );
-
-    register_post_type( 'cg-catalogs', $args );
-}
-
-public function add_plugin_admin_menu() {
+    public function add_plugin_admin_menu() {
 
 	add_submenu_page( 
             'edit.php?post_type=cg-catalogs', 'Catalog Settings', 'Catalog Settings', 'manage_options', $this->plugin_name, array($this, 'submenu_page_callback')
         );
 }
-public function submenu_page_callback() {
+	public function submenu_page_callback() {
         echo '<div class="wrap">';
         echo '<h2>Product Catalog Settings</h2>';
         echo '</div>';
