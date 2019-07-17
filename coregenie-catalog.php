@@ -46,6 +46,7 @@ function activate_coregenie_catalog() {
 	Coregenie_Catalog_Activator::activate();
 }
 
+
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-coregenie-catalog-deactivator.php
